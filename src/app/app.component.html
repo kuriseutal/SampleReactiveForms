@@ -1,20 +1,168 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Playlist</a>
+    </div>
 
+    <form class="navbar-left">
+      <div class="form-group">
+        <input type="text" class="form-control" value="{{term}}" placeholder="Search in {{editor}} playlist..." (keyup)="search(searchBox.value)" #searchBox>
+      </div>
+    </form>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a (click)="openModal(template)">
+            <span class="glyphicon glyphicon-plus"></span>
+          </a>
+        </li>   
+        <li>
+          <a *ngIf='editor == "american"' (click)="toggleEditor('korean'); changeList()">한국</a>
+          <a *ngIf='editor == "korean"' class="active" (click)="toggleEditor('korean'); changeList()">한국</a>
+        </li>
+        <li>
+         <a *ngIf='editor == "korean"' (click)="toggleEditor('american'); changeList()">미국</a>
+         <a *ngIf='editor == "american"' class="active" (click)="toggleEditor('american'); changeList()">미국</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View
+             <span class="caret"></span>
+          </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a (click)="viewList('everything')">Everything</a>
+              </li>
+              <li>
+                <a (click)="viewList('favorites')">Favorites</a>
+              </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a (click)="sortList('title')">Title</a>
+            </li>
+            <li>
+              <a (click)="sortList('artist')">Artist</a>
+            </li>
+            <li>
+              <a (click)="sortList('date')">Date</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+
+<body>
+<!--other components-->
+<app-korean *ngIf="showKoreanEditor" [songs]="songs" (updateList)="updateList()" (tag)="searchTag($event)"></app-korean>
+<app-american *ngIf="showAmericanEditor" [songs]="songs" (updateList)="updateList()" (tag)="searchTag($event)"></app-american>
+</body>
+
+<!-- Modal -->
+<ng-template #template>
+
+  <div class="modal-header">
+    <button type="button" class="close pull-right a" aria-label="Close" (click)="modalRef.hide(); clearAllMsgs();">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <a (click)="uploadImage()">
+      <span class="glyphicon glyphicon-upload"></span>
+    </a>
+    <h4 class="modal-title" id="modal-header">Add a Song</h4>
+
+  </div>
+  <div class="modal-body" id="modal-body">
+    <form [formGroup]="songForm">
+
+      <button type="reset" class="pull-right" id="clearBtn">
+        <font size="1">Clear All</font>
+      </button>
+
+      <!--#region for upload-->
+      
+      <!--#endregion-->
+
+      <br>
+      Title:
+      <font size="2" color="red" class="pull-right">{{titleMsg}}</font>
+      <input type="text" class="form-control" formControlName="title" required #title> 
+      
+      Artist:
+      <font size="2" color="red" class="pull-right">{{artistMsg}}</font>
+      <input type="text" class="form-control" formControlName="artist" required #artist> 
+      
+      Album:
+      <font size="2" color="red" class="pull-right">{{albumMsg}}</font>
+      <input type="text" class="form-control" formControlName="album" required #album> 
+      
+      Release Date:
+      <font size="2" color="red" class="pull-right">{{dateMsg}}</font>
+      <input type="number" placeholder="(e.g. 2018)" min="1900" max="2018" class="form-control" formControlName="date" required #date>
+
+      <a (click)="showMore()" class="pull-right">{{more ? 'Hide' : 'Add More'}}</a>
+
+      <div *ngIf="more" formGroupName="extraInfo">
+        
+        Lyrics:
+        <textarea class="form-control" formControlName="lyrics"></textarea>Chords:
+        <textarea class="form-control" formControlName="chords"></textarea>
+
+      </div>
+      <br>
+      <div formArrayName="tags">
+        
+        Tags
+        <font size="2" color="red" class="pull-right">{{tagMsg}}</font>
+        <div *ngFor="let tag of tags.controls; let i=index" class="input-group">
+          <input type="text" class="form-control" [formControlName]="i" required #tag id="tagField">
+          <span class="input-group-btn" *ngIf="tags.length != 1">
+            <button class="btn btn-default" id="removeBtn" (click)="removeTag(i)">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </span>
+        </div>
+        <a (click)="addTag()" class="pull-right">Add More Tags</a>
+      </div>
+      <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default pull-right" (click)="onSubmit(); openModal2(template2, songExists);">Submit</button>
+    <button type="button" class="btn btn-default pull-left" (click)="modalRef.hide(); clearAllMsgs();">
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #template2>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Error</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style='text-align: center'>
+    Song already exists
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="modalRef" type="button" class="btn btn-primary pull-right" (click)="modalRef2.hide()">Close</button>
+  </div>
+</ng-template>

@@ -1,0 +1,11 @@
+a {
+  font-size: 12px;
+  text-decoration: none;
+  color: rgb(112, 187, 0);
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgb(86, 141, 3);
+  cursor: pointer;
+}

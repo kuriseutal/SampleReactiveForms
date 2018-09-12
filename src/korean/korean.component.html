@@ -1,0 +1,45 @@
+<div *ngFor="let s of songs" class="col-xs-offset-1
+             col-sm-offset-1
+             col-md-offset-1
+             col-lg-offset-1
+             col-xs-10 
+             col-sm-10 
+             col-md-10 
+             col-lg-10">
+    <input type="checkbox" [(ngModel)]="s.isFavorited" class="pull-right" (change)="update()" id="favorite">
+    <div class = "row">
+        <div class="column">
+            <img src="{{s.img}}" *ngIf="!s.isLyricsShown">
+            <img src="{{s.img}}" id="img-spinner" *ngIf="s.isLyricsShown">
+        </div>
+        <div class="column">
+            <h4>{{s.title}}</h4>
+            <h6>by {{s.artist}}</h6>
+            <h6>
+                <i>{{s.album}}</i>
+            </h6>
+            <h6>{{s.date}}</h6>
+            <span *ngFor="let tag of s.tags">
+                <span class="label label-default" id="tag" (click)="searchTag(tag)">{{tag}}</span>&nbsp;
+            </span>
+        </div>
+    </div>
+    <br>
+    <br>
+    <label class="pull-right" >
+        <input type="checkbox" [(ngModel)]="s.isLyricsShown" (change)="showLyrics(s)">
+            {{s.isLyricsShown ? 'hide lyrics' : 'show lyrics'}}
+    </label>
+    <br>
+    <br>
+    <div *ngIf="s.isLyricsShown && s.lyrics.length != 0">
+        <div id="lyrics">
+            <div class = "scroll-content">
+                {{s.lyrics}}
+            </div>
+        </div>
+        <br>
+        <hr>
+    </div>
+    <hr *ngIf="!s.isLyricsShown">
+</div>

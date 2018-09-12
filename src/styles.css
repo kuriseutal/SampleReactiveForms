@@ -1,1 +1,197 @@
-/* You can add global styles to this file, and also import other style files */
+.btn {
+  color: white;
+  background-color: rgb(112, 187, 0);
+}
+.btn:hover {
+  color: white;
+  background-color: rgb(86, 141, 3);
+}
+.btn:active {
+  color: white !important;
+  background-color: rgb(86, 141, 3) !important;
+}
+.btn:focus {
+  color: white;
+  background-color: rgb(86, 141, 3);
+}
+
+label {
+  color: rgb(112, 187, 0);
+  cursor: pointer;
+}
+
+label:hover {
+  color: rgb(86, 141, 3);
+}
+
+input[type="checkbox"] {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  -webkit-appearance: none;
+  outline: 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"]#favorite {
+  display: block;
+  width: 27px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  -webkit-appearance: none;
+  outline: 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"]#favorite:focus {
+  outline: 0;
+}
+
+input[type="checkbox"]#favorite:checked {
+  animation: pulse 2s;
+  background-image: url("https://image.flaticon.com/icons/png/512/148/148836.png");
+}
+input[type="checkbox"]#favorite:not(:checked) {
+  background-image: url("https://image.flaticon.com/icons/svg/149/149217.svg");
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(209, 59, 0, 0.4);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px rgba(209, 59, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(209, 59, 0, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(209, 59, 0, 0.4);
+    box-shadow: 0 0 0 0 rgba(209, 59, 0, 0.4);
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 10px rgba(209, 59, 0, 0);
+    box-shadow: 0 0 0 10px rgba(209, 59, 0, 0);
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(209, 59, 0, 0);
+    box-shadow: 0 0 0 0 rgba(209, 59, 0, 0);
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
+img {
+  width: 180px;
+  height: 180px;
+}
+
+img#img-spinner {
+  border-radius: 50%;
+  animation: rotateImage 10s infinite running;
+}
+
+textarea {
+  padding-left: 10px;
+  font-size: 21px;
+  overflow-y: auto;
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  white-space: pre-line;
+
+  animation-name: example;
+  animation-duration: 5s;
+}
+
+textarea:hover {
+  animation-name: example2;
+  animation-duration: 5s;
+}
+
+div#lyrics {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  white-space: pre-line;
+
+  width: 100%;
+  height: 100px;
+  overflow-y: auto;
+
+  transform: translate3d(0, 0, 0);
+}
+
+#tag:hover {
+  cursor: pointer;
+  background-color: rgb(82, 82, 82);
+}
+
+.scroll-content {
+  animation-name: moveSlideshow;
+  animation-duration: 200s;
+  animation-delay: 1s;
+  animation-iteration-count: 100;
+}
+
+.scroll-content:hover {
+  animation: moveStop 30s infinite;
+}
+
+@keyframes moveSlideshow {
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes moveStop {
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes rotateImage {
+  0% {
+    border: 5px solid rgb(111, 185, 0, 1);
+  }
+  15%{
+    border: 5px solid rgba(111, 185, 0, 0.7);
+  }
+  30%{
+    border: 5px solid rgba(111, 185, 0, 0.5);
+  }
+  45% {
+    border: 5px solid rgba(111, 185, 0, 0.3);
+  }
+  60%{
+    border: 5px solid rgba(111, 185, 0, 0.5);
+  }
+  75%{
+    border: 5px solid rgba(111, 185, 0, 0.7);
+  }
+  90% {
+    border: 5px solid rgba(111, 185, 0, 0.9);
+  }
+  100%{
+    border: 5px solid rgba(111, 185, 0, 1);
+    transform: rotate(360deg);
+  }
+}
+
+.column {
+  float: left;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
