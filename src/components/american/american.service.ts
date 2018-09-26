@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 
-import { Song } from "../app/song.model";
+import { Song } from '../../app/song.model';
 import { AMERICANSONGS } from "./american";
 
 @Injectable({

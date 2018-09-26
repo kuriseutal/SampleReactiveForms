@@ -9,12 +9,28 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Playlist</a>
+        <a href="#" class="dropdown-toggle navbar-brand" 
+           data-toggle="dropdown" role="button" aria-haspopup="true" 
+           aria-expanded="false">Archive
+           <span class="caret"></span>
+        </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a >Playlist</a>
+            </li>
+            <li>
+              <a >Series</a>
+            </li>
+          </ul>
     </div>
 
-    <form class="navbar-left">
+    <form class="navbar-left" *ngIf='editor != "game"'> 
       <div class="form-group">
-        <input type="text" class="form-control" value="{{term}}" placeholder="Search in {{editor}} playlist..." (keyup)="search(searchBox.value)" #searchBox>
+        <input type="text" class="form-control" value="{{term}}" 
+               placeholder="Search in {{editor}} playlist..." 
+               (keyup)="search(searchBox.value)" 
+               [typeahead]=""
+               #searchBox>
       </div>
     </form>
     
@@ -22,16 +38,20 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li>
+          <a *ngIf='editor != "game"' (click)="toggleEditor('game');">게임</a>
+          <a *ngIf='editor == "game"' class="active" (click)="toggleEditor('game');">게임</a>
+        </li>
+        <li>
           <a (click)="openModal(template)">
             <span class="glyphicon glyphicon-plus"></span>
           </a>
         </li>   
         <li>
-          <a *ngIf='editor == "american"' (click)="toggleEditor('korean'); changeList()">한국</a>
+          <a *ngIf='editor != "korean"' (click)="toggleEditor('korean'); changeList()">한국</a>
           <a *ngIf='editor == "korean"' class="active" (click)="toggleEditor('korean'); changeList()">한국</a>
         </li>
         <li>
-         <a *ngIf='editor == "korean"' (click)="toggleEditor('american'); changeList()">미국</a>
+         <a *ngIf='editor != "american"' (click)="toggleEditor('american'); changeList()">미국</a>
          <a *ngIf='editor == "american"' class="active" (click)="toggleEditor('american'); changeList()">미국</a>
         </li>
         <li class="dropdown">
@@ -74,6 +94,7 @@
 <!--other components-->
 <app-korean *ngIf="showKoreanEditor" [songs]="songs" (updateList)="updateList()" (tag)="searchTag($event)"></app-korean>
 <app-american *ngIf="showAmericanEditor" [songs]="songs" (updateList)="updateList()" (tag)="searchTag($event)"></app-american>
+<app-game *ngIf="showGameEditor"></app-game>
 </body>
 
 <!-- Modal -->

@@ -1,0 +1,64 @@
+.grid-container {
+  margin: 0 auto;
+
+  display: grid;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+
+  justify-content: center;
+  align-content: center;
+
+  background-color: rgba(153, 153, 153, 0.8);
+  padding: 10px;
+
+  width: 340px;
+}
+.grid-item {
+  background-color: black;
+  color: rgba(255, 255, 255, 0.8);
+  /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.grid-item#il {
+  background-color: rgb(52, 132, 253);
+  color: white;
+}
+
+.grid-item#i {
+  background-color: red;
+}
+
+.grid-item#sam {
+  background-color: rgb(0, 202, 91);
+}
+
+.grid-item#sa {
+  background-color: yellow;
+}
+
+.grid-item#o {
+  background-color: blueviolet;
+}
+
+.grid-item#yuk {
+  background-color: orange;
+}
+
+.grid-item#chil {
+  background-color: rgb(55, 0, 255);
+}
+
+.grid-item#pal {
+  background-color: rgb(47, 163, 128);
+}
+
+.grid-item#gu {
+  background-color: rgb(240, 92, 92);
+}

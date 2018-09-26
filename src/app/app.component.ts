@@ -4,10 +4,10 @@ import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 import { FormBuilder, Validators, FormArray } from "@angular/forms";
 
 import { Song } from "./song.model";
-import { KoreanService } from "../korean/korean.service";
-import { AmericanService } from "../american/american.service";
+import { KoreanService } from "../components/korean/korean.service";
+import { AmericanService } from "../components/american/american.service";
 
-export type EditorType = "korean" | "american";
+export type EditorType = "korean" | "american" | "game";
 
 @Component({
   selector: "app-root",
@@ -15,10 +15,6 @@ export type EditorType = "korean" | "american";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-
-  //#region file upload
- 
-  //#endregion
 
   songs: Song[];
   favorites: Song[];
@@ -62,12 +58,20 @@ export class AppComponent implements OnInit {
   sortOption: string = "title";
   term: string = "";
 
+  searchSuggestions: string[];
+
   idList: number[] = [];
   uploadedImage: string = "http://dalelyles.com/musicmp3s/no_cover.jpg";
   
   ngOnInit() {
     this.songs = this.koreanService.getKoreanSongs("").sort(this.sortByTitleAsc);
     
+
+    for(let i = 0; i < this.songs.length; i++){
+      this.searchSuggestions.push(this.songs[i].title);
+      this.searchSuggestions.push(this.songs[i].artist);
+      this.searchSuggestions.push(this.songs[i].);
+    }
   }
 
   get tags() {
@@ -210,7 +214,11 @@ export class AppComponent implements OnInit {
     return this.editor === "korean";
   }
 
-  get showAmericanEditor() {
+  get showGameEditor() {
+    return this.editor === "game";
+  }
+
+  get showAmericanEditor() { 
     return this.editor === "american";
   }
 

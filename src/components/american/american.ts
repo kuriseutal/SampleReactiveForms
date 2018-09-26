@@ -1,4 +1,4 @@
-import { Song } from "../app/song.model";
+import { Song } from '../../app/song.model';
 
 export const AMERICANSONGS: Song[] = [
   {
